@@ -16,6 +16,13 @@ gem "github-pages", group: :jekyll_plugins
 
 # gem "jekyll"
 
+# Note: Need to add this to avoid time zone error
+gem 'tzinfo-data'
+
+# Note: Add this to avoid error, see here: 
+# https://github.com/jekyll/jekyll/issues/8523
+gem "webrick"
+
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
 # If you have any plugins, put them here!
