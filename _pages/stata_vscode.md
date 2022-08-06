@@ -1,0 +1,1 @@
+A guide that describes how to use Stata in VS Code.
