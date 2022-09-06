@@ -21,7 +21,7 @@ Furthermore, it is possible to prepare blank code snippets for Stata specific us
 
 In general, to install extensions click on the Extensions icon in the VS Code sidebar (the one with the three + one blocks).
 ### Stata Enhanced
-Provided by Kyle Barron, Stata Enhanced provides "syntax highlighting in Visual Studio Code, built from the ground up".
+TEST Provided by Kyle Barron, Stata Enhanced provides "syntax highlighting in Visual Studio Code, built from the ground up".
 The extension highlights almost everything in a nice and readable manner.
 
 ### Runing Stata from VS Code: stataRun, Code Runner, ...
