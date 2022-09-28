@@ -117,7 +117,13 @@ However, notice the "$" decorators that act like variables: The above routine ha
 
 This is most easily demonstrated by a short video:
 
-<video src="videos/snippets_groupvars.mp4" data-canonical-src="videos/snippets_groupvars.mp4" controls="controls" muted="muted" class="d-block rounded-bottom-2 width-fit" style="max-height:640px;">
+<video type="video/mp4" 
+src="videos/snippets_groupvars.mp4" 
+data-canonical-src="videos/snippets_groupvars.mp4" 
+controls="controls" 
+muted="muted" 
+class="d-block rounded-bottom-2 width-fit" 
+style="max-height:640px;">
 </video>
 
 ### Binscatter Routine
