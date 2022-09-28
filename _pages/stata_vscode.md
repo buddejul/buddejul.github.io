@@ -67,6 +67,66 @@ I occasionally run into a bug where code is not executed and I cannot use the ke
 # Other Extensions
 
 # Snippets
+While coding I regularly find myself repurposing code blocks from old code, these might be simple things like a routine to calculate within-group maxima or more complex things like summary tables or collapse statements. 
+One feature of VS Code I find particularly helpful is the ability to use pre-written Code snippets in an intuitive way. What is best, these snippet are easy to write on your own. 
+
+
+How does it work?
+- VS Code has its own "snippet" feature with a simple language that allows highly customizable yet easy to write snippets.
+- You can see your current snippets the following way:
+    - `ctrl + alt + p` to open your search bar, enter "snippets" and hit "Configure user snippets"
+    - Further down below your existing snippets clicking the option "New global snippets file..." will give you a snippet template for a snippet.
+    - Snippets follow a specific language that defines things like their main body, their intended languages, or the word they are called by.
+- Once you have configured a snippet you can just invoke it by typing the designated prefix into your code and hitting enter.
+
+
+## Examples
+A more comprehensive guide to writing snippets can be found here: [https://code.visualstudio.com/docs/editor/userdefinedsnippets](Snippets in Visual Studio Code
+). I will demonstrate its usefulness with two examples in the following sections.
+### Variables by Group
+Often in panel data settings you want to generate variables that are aggregated on some level.
+For example, in an individual-establishment-year panel with wage information you might want to create a variable that stores the maximum wage within each firm and year.
+One way of doing this without altering the structure of the data at hand (e.g. by collapsing) is using a command like `egen max_wage = max(wage), by(establishment year)`.
+However, especially `egen` commands tend to be (a lot) slower than hard-coded commands and faster options like `gegen` might not always be available.
+An alternative way of finding the maximum of a variable is 
+```Stata
+gen max_wage = wage
+bysort establishment year: replace max_wage = max(max_wage[_n-1], max_wage)
+bysort establishment year: replace max_wage = max_wage[_N]
+```
+which can be hard to remember. At the same time you might not want to put this in a separate ado file because that can defeat the purpose of having a hard-coded command based on Stata primitives.
+
+Now this is where a snippet comes in handy. The following snippet creates a template for the above code:
+```
+{
+	// Code for the maximum in a group (panel data)
+    "Stata max by group": {
+		"scope": "stata",
+		"prefix": "groupmax",
+		"body": [
+            "gen max_${1:var} = ${1:var}",
+            "bysort ${2:group}: replace max_${1:var} = max(max_${1:var}[_n-1], max_${1:var})",
+            "bysort ${2:group}: replace max_${1:var} = max_${1:var}[_N]"
+		],
+		"description": "Maximum in a group"
+	}
+}
+```
+You can see the corresponding code in the body which is put in the editor upon typing groupmax and hitting enter.
+However, notice the "$" decorators that act like variables: The above routine has two inputs (wage and the by-group) and the way the snippet is coded you only need to type them *once*, while also giving you a consistent naming of variables.
+
+This is most easily demonstrated by a short video:
+
+<video width="320" height="240" controls>
+  <source src="videos/snippets_groupvars.mkv" type="video/mkv">
+</video>
+
+### Binscatter Routine
+
+## Implementations
+
+## Todo
+
 - Hard-coded equivalents to egen/gegen (groupmax, groupmin, grouptotal)
     - These require no packages and are faster than egen, but usually slower than gegen
 - Esttab templates (esttab_regtab)
